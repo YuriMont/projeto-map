@@ -1,0 +1,111 @@
+CREATE TABLE hospedes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) UNIQUE,
+    email VARCHAR(100),
+    telefone VARCHAR(20),
+    data_nascimento DATE
+);
+
+CREATE TABLE quartos (
+    id SERIAL PRIMARY KEY,
+    numero INT NOT NULL UNIQUE,
+    tipo VARCHAR(50), -- Ex: Solteiro, Casal, Luxo
+    capacidade INT,
+    preco_diaria DECIMAL(10, 2),
+    status TEXT DEFAULT 'disponivel' CHECK (status IN ('disponivel', 'ocupado', 'manutencao'))
+);
+
+CREATE TABLE reservas (
+    id SERIAL PRIMARY KEY,
+    id_hospede INT REFERENCES hospedes(id),
+    id_quarto INT REFERENCES quartos(id),
+    data_checkin DATE,
+    data_checkout DATE,
+    status TEXT DEFAULT 'confirmada' CHECK (status IN ('confirmada', 'cancelada', 'concluida'))
+);
+
+CREATE TABLE pagamentos (
+    id SERIAL PRIMARY KEY,
+    id_reserva INT REFERENCES reservas(id),
+    data_pagamento DATE,
+    valor_pago DECIMAL(10, 2),
+    forma_pagamento TEXT CHECK (forma_pagamento IN ('dinheiro', 'cartao_credito', 'cartao_debito', 'pix'))
+);
+
+CREATE TABLE funcionarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100),
+    cargo VARCHAR(50),
+    email VARCHAR(100),
+    telefone VARCHAR(20),
+    data_contratacao DATE
+);
+
+CREATE TABLE log_reservas (
+    id SERIAL PRIMARY KEY,
+    id_reserva INT REFERENCES reservas(id),
+    acao VARCHAR(255),
+    detalhes TEXT,
+    usuario VARCHAR(100),
+    data_log TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE servicos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10, 2)
+);
+
+CREATE TABLE reservas_servicos (
+    id SERIAL PRIMARY KEY,
+    id_reserva INT REFERENCES reservas(id),
+    id_servico INT REFERENCES servicos(id),
+    quantidade INT DEFAULT 1,
+    data_servico DATE
+);
+
+CREATE TABLE consumos (
+    id SERIAL PRIMARY KEY,
+    id_reserva INT REFERENCES reservas(id),
+    descricao VARCHAR(255),
+    quantidade INT,
+    preco_unitario DECIMAL(10, 2),
+    data_consumo DATE
+);
+
+CREATE TABLE funcionarios_turnos (
+    id SERIAL PRIMARY KEY,
+    id_funcionario INT REFERENCES funcionarios(id),
+    data_turno DATE,
+    turno TEXT CHECK (turno IN ('manha', 'tarde', 'noite'))
+);
+
+CREATE TABLE manutencao_quartos (
+    id SERIAL PRIMARY KEY,
+    id_quarto INT REFERENCES quartos(id),
+    id_funcionario INT REFERENCES funcionarios(id),
+    descricao TEXT,
+    data_inicio DATE,
+    data_fim DATE,
+    status TEXT DEFAULT 'pendente' CHECK (status IN ('pendente', 'em_andamento', 'concluida'))
+);
+
+CREATE TABLE fornecedores (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    tipo_produto_servico VARCHAR(100),
+    contato VARCHAR(100),
+    telefone VARCHAR(20),
+    email VARCHAR(100)
+);
+
+CREATE TABLE comentarios (
+    id SERIAL PRIMARY KEY,
+    id_reserva INT REFERENCES reservas(id),
+    comentario TEXT,
+    avaliacao INT,
+    data_comentario DATE
+);
+
