@@ -5,6 +5,10 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ManutencaoQuarto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

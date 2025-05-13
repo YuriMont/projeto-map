@@ -3,10 +3,13 @@ package com.uepb.reservas.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

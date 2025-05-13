@@ -16,6 +16,10 @@ import java.util.Date;
 import com.uepb.reservas.enums.FuncionarioTurno;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,6 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Hospede {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
