@@ -1,7 +1,7 @@
 package com.uepb.reservas.controllers;
 
-import com.uepb.reservas.models.Hospede;
-import com.uepb.reservas.services.HospedeService;
+import com.uepb.reservas.models.Servico;
+import com.uepb.reservas.services.ServicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hospede")
-@Tag(name = "Hóspede", description = "Endpoints relacionados aos hóspedes")
-public class HospedeController {
+@RequestMapping("/servico")
+@Tag(name = "Serviço", description = "Endpoints relacionados aos serviços.")
+public class ServicoController {
 
     @Autowired
-    private HospedeService service;
+    private ServicoService service;
 
     @GetMapping
-    public ResponseEntity<List<Hospede>> find(){
-        return ResponseEntity.status(200).body(service.findHospedes());
+    public ResponseEntity<List<Servico>> find(){
+        return ResponseEntity.status(200).body(service.findServico());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Hospede> create(@RequestBody Hospede h){
-        var response = service.createHospede(h);
+    public ResponseEntity<Servico> create(@RequestBody Servico s){
+        var response = service.createServico(s);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);
     }

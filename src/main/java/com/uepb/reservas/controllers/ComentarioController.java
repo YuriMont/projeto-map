@@ -1,7 +1,7 @@
 package com.uepb.reservas.controllers;
 
-import com.uepb.reservas.models.Hospede;
-import com.uepb.reservas.services.HospedeService;
+import com.uepb.reservas.models.Comentario;
+import com.uepb.reservas.services.ComentarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hospede")
-@Tag(name = "Hóspede", description = "Endpoints relacionados aos hóspedes")
-public class HospedeController {
+@RequestMapping("/comentario")
+@Tag(name = "Comentário", description = "Endpoints relacionados aos comentários e avaliações.")
+public class ComentarioController {
 
     @Autowired
-    private HospedeService service;
+    private ComentarioService service;
 
     @GetMapping
-    public ResponseEntity<List<Hospede>> find(){
-        return ResponseEntity.status(200).body(service.findHospedes());
+    public ResponseEntity<List<Comentario>> find(){
+        return ResponseEntity.status(200).body(service.findComentario());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Hospede> create(@RequestBody Hospede h){
-        var response = service.createHospede(h);
+    public ResponseEntity<Comentario> create(@RequestBody Comentario cmt){
+        var response = service.createComentario(cmt);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);
     }

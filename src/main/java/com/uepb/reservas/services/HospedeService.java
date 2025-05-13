@@ -20,6 +20,4 @@ public class HospedeService {
     public List<Hospede> findHospedes(){
         return repository.findAll();
     }
-
-
 }
