@@ -1,16 +1,16 @@
 package com.uepb.reservas.controllers;
 
+import com.uepb.reservas.dtos.requests.FuncionarioRequestDto;
 import com.uepb.reservas.models.Funcionario;
 import com.uepb.reservas.services.FuncionarioService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/funcionario")
@@ -21,13 +21,44 @@ public class FuncionarioController {
     private FuncionarioService service;
 
     @GetMapping
-    public ResponseEntity<List<Funcionario>> find(){
+    public ResponseEntity<List<Funcionario>> findAll(){
         return ResponseEntity.status(200).body(service.findFuncionario());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Funcionario> create(@RequestBody Funcionario fcnr){
-        var response = service.createFuncionario(fcnr);
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Funcionario>> findById(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Funcionario id")
+            Long id)
+    {
+        return ResponseEntity.status(200).body(service.findFuncionarioById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Funcionario id")
+            Long id)
+    {
+        service.deleteFuncionarioById(id);
+
+        return ResponseEntity.status(200).body("Funcionario deletado");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Funcionario> updateById(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Funcionario id")
+            Long id,
+            @RequestBody FuncionarioRequestDto funcionarioRequestDto
+            )
+    {
+        return ResponseEntity.status(200).body(service.updateFuncionario(id, funcionarioRequestDto));
+    }
+
+    @PostMapping()
+    public ResponseEntity<Funcionario> create(@RequestBody FuncionarioRequestDto funcionarioRequestDto){
+        var response = service.createFuncionario(funcionarioRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);
     }

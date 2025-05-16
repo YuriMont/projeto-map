@@ -3,10 +3,7 @@ package com.uepb.reservas.models;
 import com.uepb.reservas.enums.QuartoStatus;
 import com.uepb.reservas.enums.QuartoTipo;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,7 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Quarto {
+@ToString
+public class Quarto extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
