@@ -1,7 +1,14 @@
 package com.uepb.reservas.models;
 
-import jakarta.persistence.*;
+import com.uepb.reservas.dtos.requests.ManutencaoQuartoRequestDto;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Id;
 import lombok.*;
+
 import java.util.Date;
 
 @Entity
@@ -24,4 +31,24 @@ public class ManutencaoQuarto extends BaseEntity{
     private Date dataInicio;
     private Date dataFim;
     private String status;
+
+    public ManutencaoQuarto(ManutencaoQuartoRequestDto requestDto){
+        this.quarto = new Quarto(requestDto.id_quarto());
+        this.funcionario = new Funcionario(requestDto.id_funcionario());
+        this.descricao = requestDto.descricao();
+        this.dataInicio = requestDto.dataInicio();
+        this.dataFim =  requestDto.dataFim();
+        this.status = requestDto.status();
+    }
+
+    public ManutencaoQuarto(Long id, ManutencaoQuartoRequestDto requestDto){
+        this.id = id;
+        this.quarto = new Quarto(requestDto.id_quarto());
+        this.funcionario = new Funcionario(requestDto.id_funcionario());
+        this.descricao = requestDto.descricao();
+        this.dataInicio = requestDto.dataInicio();
+        this.dataFim =  requestDto.dataFim();
+        this.status = requestDto.status();
+    }
+
 }

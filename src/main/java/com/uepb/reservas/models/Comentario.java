@@ -1,6 +1,13 @@
 package com.uepb.reservas.models;
 
-import jakarta.persistence.*;
+import com.uepb.reservas.dtos.requests.ComentarioRequestDto;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.util.Date;
@@ -25,4 +32,21 @@ public class Comentario extends BaseEntity{
     private String comentario;
     private int avaliacao;
     private Date dataComentario;
+
+    public Comentario (ComentarioRequestDto requestDto){
+        this.hospede = new Hospede(requestDto.id_hospede());
+        this.reserva = new Reserva(requestDto.id_reserva());
+        this.comentario = requestDto.comentario();
+        this.avaliacao = requestDto.avaliacao();
+        this.dataComentario = requestDto.dataComentario();
+    }
+
+    public Comentario (Long id, ComentarioRequestDto requestDto){
+        this.id = id;
+        this.hospede = new Hospede(requestDto.id_hospede());
+        this.reserva = new Reserva(requestDto.id_reserva());
+        this.comentario = requestDto.comentario();
+        this.avaliacao = requestDto.avaliacao();
+        this.dataComentario = requestDto.dataComentario();
+    }
 }

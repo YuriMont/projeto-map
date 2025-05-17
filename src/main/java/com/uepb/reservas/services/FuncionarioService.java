@@ -25,7 +25,7 @@ public class FuncionarioService {
 
     public Funcionario updateFuncionario(Long id, FuncionarioRequestDto funcionarioRequestDto){
         if(!repository.existsById(id)) {
-            throw new IllegalArgumentException("Id não encontrado");
+            throw new IllegalArgumentException("Id não encontrado.");
         }
 
         return repository.save(new Funcionario(id, funcionarioRequestDto));

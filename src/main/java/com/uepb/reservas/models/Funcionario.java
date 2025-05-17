@@ -31,6 +31,10 @@ public class Funcionario extends BaseEntity{
     private String telefone;
     private Date dataContratacao;
 
+    public Funcionario (Long id){
+        this.id = id;
+    }
+    
     public Funcionario (FuncionarioRequestDto requestDto){
         this.nome = requestDto.nome();
         this.cargo = requestDto.cargo();

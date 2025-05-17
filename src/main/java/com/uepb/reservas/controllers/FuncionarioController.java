@@ -28,7 +28,7 @@ public class FuncionarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Funcionario>> findById(
             @PathVariable("id")
-            @Parameter(name = "id", description = "Funcionario id")
+            @Parameter(name = "id", description = "Funcionário id")
             Long id)
     {
         return ResponseEntity.status(200).body(service.findFuncionarioById(id));
@@ -37,18 +37,18 @@ public class FuncionarioController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(
             @PathVariable("id")
-            @Parameter(name = "id", description = "Funcionario id")
+            @Parameter(name = "id", description = "Funcionário id")
             Long id)
     {
         service.deleteFuncionarioById(id);
 
-        return ResponseEntity.status(200).body("Funcionario deletado");
+        return ResponseEntity.status(200).body("Funcionário deletado.");
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Funcionario> updateById(
             @PathVariable("id")
-            @Parameter(name = "id", description = "Funcionario id")
+            @Parameter(name = "id", description = "Funcionário id")
             Long id,
             @RequestBody FuncionarioRequestDto funcionarioRequestDto
             )

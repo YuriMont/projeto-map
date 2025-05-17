@@ -1,6 +1,12 @@
 package com.uepb.reservas.models;
 
-import jakarta.persistence.*;
+import com.uepb.reservas.dtos.requests.ConsumoRequestDto;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.util.Date;
@@ -22,4 +28,25 @@ public class Consumo extends BaseEntity{
     private int quantidade;
     private double precoUnitario;
     private Date dataConsumo;
+
+    public Consumo (Long id){
+        this.id = id;
+    }
+
+    public Consumo (ConsumoRequestDto requestDto){
+        this.reserva = new Reserva(requestDto.id_reserva());
+        this.descricao = requestDto.descricao();
+        this.quantidade = requestDto.quantidade();
+        this.precoUnitario = requestDto.precoUnitario();
+        this.dataConsumo = requestDto.dataConsumo();
+    }
+
+    public Consumo (long id, ConsumoRequestDto requestDto){
+        this.id = id;
+        this.reserva = new Reserva(requestDto.id_reserva());
+        this.descricao = requestDto.descricao();
+        this.quantidade = requestDto.quantidade();
+        this.precoUnitario = requestDto.precoUnitario();
+        this.dataConsumo = requestDto.dataConsumo();
+    }
 }
