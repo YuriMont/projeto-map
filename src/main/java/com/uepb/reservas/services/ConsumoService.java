@@ -23,7 +23,7 @@ public class ConsumoService {
         return repository.findById(id);
     }
 
-    public Consumo updatecConsumo(Long id, ConsumoRequestDto consumoRequestDto){
+    public Consumo updateConsumo(Long id, ConsumoRequestDto consumoRequestDto){
         if(!repository.existsById(id)) {
             throw new IllegalArgumentException("Id não encontrado.");
         }

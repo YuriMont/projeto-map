@@ -1,16 +1,16 @@
 package com.uepb.reservas.controllers;
 
+import com.uepb.reservas.dtos.requests.HospedeRequestDto;
 import com.uepb.reservas.models.Hospede;
 import com.uepb.reservas.services.HospedeService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/hospede")
@@ -21,13 +21,44 @@ public class HospedeController {
     private HospedeService service;
 
     @GetMapping
-    public ResponseEntity<List<Hospede>> find(){
+    public ResponseEntity<List<Hospede>> findAll(){
         return ResponseEntity.status(200).body(service.findHospedes());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Hospede> create(@RequestBody Hospede h){
-        var response = service.createHospede(h);
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Hospede>> findById(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Hóspede id")
+            Long id)
+    {
+        return ResponseEntity.status(200).body(service.findHospedeById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Hóspede id")
+            Long id)
+    {
+        service.deleteHospedeById(id);
+
+        return ResponseEntity.status(200).body("Hóspede deletado.");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Hospede> updateById(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Hóspede id")
+            Long id,
+            @RequestBody HospedeRequestDto hospedeRequestDto
+            )
+    {
+        return ResponseEntity.status(200).body(service.updateHospede(id, hospedeRequestDto));
+    }
+
+    @PostMapping()
+    public ResponseEntity<Hospede> create(@RequestBody HospedeRequestDto hospedeRequestDto){
+        var response = service.createHospede(hospedeRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);
     }
