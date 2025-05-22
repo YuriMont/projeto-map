@@ -8,6 +8,7 @@ import com.uepb.reservas.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -46,7 +47,7 @@ public class ReservaService {
         quarto.setStatus(OCUPADO);
     }
 
-    private int verificarQuantidadeHospede(Quarto quarto){
+    private boolean verificarQuantidadeHospede(Quarto quarto){
         Scanner i = new Scanner(System.in);
         
         System.out.println("Quantas pessoas?");
@@ -56,15 +57,11 @@ public class ReservaService {
             System.out.println("Melhor nem reservar.");
         
         else{
-            if((quarto.getTipo() == "CASAL" && quantHosp > 2)
-            || (quarto.getTipo() == "LUXO" && quantHosp > 4) 
-            || (quarto.getTipo() == "SOLTEIRO" && quantHosp > 1))
+            if(quarto.getCapacidade() < quantHosp)
                 System.out.println("Quantidade excedente de hospedes.");
-                return 0;
+                return false;
         }
-
-        System.out.println("RESERVA EFETUADA.");
-        ocuparQuarto(quarto);
+        return true;
     }
     public void reservarQuarto(Hospede hospede, Quarto quarto){
         
@@ -76,6 +73,12 @@ public class ReservaService {
 
         else{
             verificarQuantidadeHospede(quarto);
+            while (!verificarQuantidadeHospede(quarto)) {
+                verificarQuantidadeHospede(quarto);
+            }
+
+        
+            
         }
 
     }

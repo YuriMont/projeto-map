@@ -29,6 +29,7 @@ public class Hospede extends BaseEntity{
     private String cpf;
     private String email;
     private String telefone;
+    private String senha;
     private Date dataNascimento;
     @OneToMany(mappedBy = "hospede", cascade = CascadeType.ALL)
     private List<Reserva> reservas;
@@ -37,6 +38,15 @@ public class Hospede extends BaseEntity{
         this.id = id;
     }
     
+    public Hospede(String nome, String cpf, String email, String telefone, String senha, Date dataNascimento){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.telefone = telefone;
+        this.senha = senha;
+        this.dataNascimento = dataNascimento;
+    }
+
     public Hospede (HospedeRequestDto requestDto){
         this.nome = requestDto.nome();
         this.cpf = requestDto.cpf();
