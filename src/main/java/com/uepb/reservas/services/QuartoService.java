@@ -1,12 +1,14 @@
 package com.uepb.reservas.services;
 
 import com.uepb.reservas.dtos.requests.QuartoRequestDto;
+import com.uepb.reservas.enums.QuartoTipo;
 import com.uepb.reservas.models.Consumo;
 import com.uepb.reservas.models.Quarto;
-import com.uepb.reservas.repositories.QuartoReposiroty;
+import com.uepb.reservas.repositories.QuartoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +16,7 @@ import java.util.Optional;
 public class QuartoService {
 
     @Autowired
-    private QuartoReposiroty repository;
+    private QuartoRepository repository;
 
     public Quarto createQuarto(QuartoRequestDto quartoRequestDto){
         return repository.save(new Quarto(quartoRequestDto));
@@ -49,5 +51,9 @@ public class QuartoService {
         for (Consumo consumo : consumos) {
             System.out.println(consumo);
         }
+    }
+
+    public Quarto verificarDisponibilidade(QuartoTipo tipo, Date checkIn, Date checkOut){
+        return null;
     }
 }

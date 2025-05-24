@@ -62,4 +62,28 @@ public class HospedeController {
         System.out.println(response);
         return ResponseEntity.status(200).body(response);
     }
+
+     @PostMapping("/cadastrar")
+    public ResponseEntity<String> cadastrarHospede(@RequestBody HospedeRequestDto request) {
+        try {
+            boolean cadastrado = service.fazerCadastro(request);
+            if (cadastrado) {
+                return ResponseEntity.ok("Cadastro realizado com sucesso.");
+            } else {
+                return ResponseEntity.badRequest().body("Erro ao cadastrar hóspede.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody HospedeRequestDto request) {
+        boolean sucesso = service.fazerLogin(request.email(), request.senha());
+        if (sucesso) {
+            return ResponseEntity.ok("Login bem-sucedido!");
+        } else {
+            return ResponseEntity.status(401).body("Email ou senha inválidos.");
+        }
+    }
 }

@@ -18,7 +18,11 @@ import java.util.Scanner;
 
 @Service
 public class HospedeService {
-    Scanner s = new Scanner(System.in);
+    private final List<Hospede> hospedes;
+
+    public HospedeService(List<Hospede> hospedes) {
+        this.hospedes = hospedes;
+    }
 
     @Autowired
     private HospedeRepository repository;
@@ -47,47 +51,27 @@ public class HospedeService {
         return repository.findAll();
     }
 
-    public boolean fazerCadastro(List<Hospede> hospedes) throws ParseException{
-        System.out.println("- TELA DE CADASTRO -");
+    public boolean fazerCadastro(HospedeRequestDto request) throws ParseException {
 
-        System.out.println("Nome: ");
-        String nome = s.nextLine();
+        Hospede hospede = new Hospede(
+                null, request.nome(),
+                request.cpf(),
+                request.email(),
+                request.telefone(),
+                request.senha(),
+                request.dataNascimento(), null
+        );
 
-        System.out.println("CPF: ");
-        String cpf = s.nextLine();
-        
-        System.out.println("Email: ");
-        String email = s.nextLine();
-
-        System.out.println("Senha: ");
-        String senha = s.nextLine();
-        
-        System.out.println("Telefone: ");
-        String telefone = s.nextLine();
-
-        System.out.println("Data de nascimento: (dd/mm/aaaa)");
-        String dn = s.nextLine();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataNascimento = formatter.parse(dn);
-
-        Hospede hospede = new Hospede(nome, cpf, email, telefone, senha, dataNascimento);
         hospedes.add(hospede);
         return true;
     }
 
-    public boolean fazerLogin(List<Hospede> hospedes){
-        System.out.println("Email: ");
-        String email = s.nextLine();
+    public boolean fazerLogin(String email, String senha) {
+        return hospedes.stream()
+                .anyMatch(h -> h.getEmail().equals(email) && h.getSenha().equals(senha));
+    }
 
-        System.out.println("Senha: ");
-        String senha = s.nextLine();
-
-        for (Hospede hospede : hospedes) {
-            if((hospede.getEmail() == email) && (hospede.getSenha() == senha)){
-                return true;
-            };
-        }
-
-        return false;
+    public void verificarIdade(Hospede hospede){
+        
     }
 }
