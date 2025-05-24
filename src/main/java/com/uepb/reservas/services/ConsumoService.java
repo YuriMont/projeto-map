@@ -38,4 +38,15 @@ public class ConsumoService {
     public List<Consumo> findConsumo(){
         return repository.findAll();
     }
+
+    public void informacoesConsumo(Consumo consumo){
+        System.out.println("Quarto: ");
+        consumo.getQuarto().getNumero();
+        System.out.println("Descricao: ");
+        consumo.getDescricao();
+        System.out.println("Quantidade: ");
+        consumo.getQuantidade();
+        System.out.println("Preço: ");
+        consumo.getPrecoUnitario();
+    }
 }

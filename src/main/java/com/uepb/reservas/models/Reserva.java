@@ -44,6 +44,14 @@ public class Reserva extends BaseEntity{
         this.id = id;
     }
 
+    public Reserva(Date dataCheckin, Date dataCheckout, Hospede hospede, Quarto quarto, ReservaStatus status, List<Pagamento> pagamentos){
+        this.dataCheckin = dataCheckin;
+        this.dataCheckout = dataCheckout;
+        this.hospede = hospede;
+        this.status = status;
+        this.pagamentos = pagamentos;
+    }
+
     public Reserva (ReservaRequestDto requestDto){
         this.hospede = new Hospede(requestDto.id_hospede());
         this.quarto = new Quarto(requestDto.id_quarto());

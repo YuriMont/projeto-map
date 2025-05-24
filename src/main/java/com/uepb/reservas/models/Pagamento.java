@@ -1,5 +1,7 @@
 package com.uepb.reservas.models;
 
+import org.springframework.boot.context.properties.source.ConfigurationPropertyName.Form;
+
 import com.uepb.reservas.dtos.requests.PagamentoRequestDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,12 @@ public class Pagamento extends BaseEntity{
     private Double valorPago;
     @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
+
+    public Pagamento(Reserva reserva, Double valorPago, FormaPagamento formaPagamento){
+        this.reserva = reserva;
+        this.valorPago = valorPago;
+        this.formaPagamento = formaPagamento;
+    }
     
     public Pagamento (PagamentoRequestDto requestDto){
         this.reserva = new Reserva(requestDto.id_reserva());

@@ -47,7 +47,7 @@ public class HospedeService {
         return repository.findAll();
     }
 
-    public Hospede fazerCadastro() throws ParseException{
+    public boolean fazerCadastro(List<Hospede> hospedes) throws ParseException{
         System.out.println("- TELA DE CADASTRO -");
 
         System.out.println("Nome: ");
@@ -71,7 +71,8 @@ public class HospedeService {
         Date dataNascimento = formatter.parse(dn);
 
         Hospede hospede = new Hospede(nome, cpf, email, telefone, senha, dataNascimento);
-        return hospede;
+        hospedes.add(hospede);
+        return true;
     }
 
     public boolean fazerLogin(List<Hospede> hospedes){

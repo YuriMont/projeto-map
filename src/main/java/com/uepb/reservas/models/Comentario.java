@@ -33,6 +33,14 @@ public class Comentario extends BaseEntity{
     private int avaliacao;
     private Date dataComentario;
 
+    public Comentario(Hospede hospede, Reserva reserva, String comentario, int avaliacao, Date dataComentario){
+        this.hospede = hospede;
+        this.reserva = reserva;
+        this.comentario = comentario;
+        this.avaliacao = avaliacao;
+        this.dataComentario = dataComentario;
+    }
+
     public Comentario (ComentarioRequestDto requestDto){
         this.hospede = new Hospede(requestDto.id_hospede());
         this.reserva = new Reserva(requestDto.id_reserva());

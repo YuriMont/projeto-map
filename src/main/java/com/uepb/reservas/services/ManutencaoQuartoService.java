@@ -1,7 +1,9 @@
 package com.uepb.reservas.services;
 
 import com.uepb.reservas.dtos.requests.ManutencaoQuartoRequestDto;
+import com.uepb.reservas.models.Funcionario;
 import com.uepb.reservas.models.ManutencaoQuarto;
+import com.uepb.reservas.models.Quarto;
 import com.uepb.reservas.repositories.ManutencaoQuartoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +39,9 @@ public class ManutencaoQuartoService {
 
     public List<ManutencaoQuarto> findManutencaoQuarto(){
         return repository.findAll();
+    }
+
+    public void fazerManutencao(Funcionario funcionario, Quarto quarto){
+        
     }
 }

@@ -1,6 +1,7 @@
 package com.uepb.reservas.services;
 
 import com.uepb.reservas.dtos.requests.QuartoRequestDto;
+import com.uepb.reservas.models.Consumo;
 import com.uepb.reservas.models.Quarto;
 import com.uepb.reservas.repositories.QuartoReposiroty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,16 @@ public class QuartoService {
 
     public List<Quarto> findQuarto(){
         return repository.findAll();
+    }
+
+    public static void listarConsumos(List<Consumo> consumos) {
+        if (consumos == null || consumos.isEmpty()) {
+            System.out.println("Nenhum consumo registrado.");
+            return;
+        }
+
+        for (Consumo consumo : consumos) {
+            System.out.println(consumo);
+        }
     }
 }

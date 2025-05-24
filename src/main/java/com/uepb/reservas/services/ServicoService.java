@@ -1,6 +1,7 @@
 package com.uepb.reservas.services;
 
 import com.uepb.reservas.dtos.requests.ServicoRequestDto;
+import com.uepb.reservas.models.Consumo;
 import com.uepb.reservas.models.Servico;
 import com.uepb.reservas.repositories.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,14 @@ public class ServicoService {
 
     public List<Servico> findServico(){
         return repository.findAll();
+    }
+
+    public void informacoesServico(Servico servico){
+        System.out.println("Nome: ");
+        servico.getNome();
+        System.out.println("Descricao: ");
+        servico.getDescricao();
+        System.out.println("Preço: ");
+        servico.getValor();
     }
 }

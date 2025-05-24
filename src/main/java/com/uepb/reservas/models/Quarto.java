@@ -37,6 +37,7 @@ public class Quarto extends BaseEntity{
     private Double precoDiaria;
     @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL)
     private List <Reserva> reservas;
+    private List<Consumo> consumos;
 
     public Quarto (Long id){
         this.id = id;

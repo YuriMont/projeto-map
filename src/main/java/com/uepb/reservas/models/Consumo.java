@@ -9,8 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Id;
 import lombok.*;
 
-import java.util.Date;
-
 @Entity
 @Getter
 @Setter
@@ -24,10 +22,10 @@ public class Consumo extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "id_reserva", nullable = false)
     private Reserva reserva;
+    private Quarto quarto;
     private String descricao;
     private int quantidade;
     private double precoUnitario;
-    private Date dataConsumo;
 
     public Consumo (Long id){
         this.id = id;
@@ -38,7 +36,6 @@ public class Consumo extends BaseEntity{
         this.descricao = requestDto.descricao();
         this.quantidade = requestDto.quantidade();
         this.precoUnitario = requestDto.precoUnitario();
-        this.dataConsumo = requestDto.dataConsumo();
     }
 
     public Consumo (long id, ConsumoRequestDto requestDto){
@@ -47,6 +44,5 @@ public class Consumo extends BaseEntity{
         this.descricao = requestDto.descricao();
         this.quantidade = requestDto.quantidade();
         this.precoUnitario = requestDto.precoUnitario();
-        this.dataConsumo = requestDto.dataConsumo();
     }
 }
