@@ -1,8 +1,10 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ReservaRequestDto;
+import com.uepb.reservas.dtos.responses.ReservaResponseDto;
 import com.uepb.reservas.models.Reserva;
 import com.uepb.reservas.services.ReservaService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,12 @@ public class ReservaController {
     private ReservaService service;
 
     @GetMapping
-    public ResponseEntity<List<Reserva>> findAll(){
-        return ResponseEntity.status(200).body(service.findReserva());
+    public ResponseEntity<List<ReservaResponseDto>> findAll(){
+        return ResponseEntity.status(200).body(service.findReservas());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Reserva>> findById(
+    public ResponseEntity<ReservaResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Reserva id")
             Long id)
@@ -46,7 +48,7 @@ public class ReservaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reserva> updateById(
+    public ResponseEntity<ReservaResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Reserva id")
             Long id,
@@ -57,9 +59,36 @@ public class ReservaController {
     }
 
     @PostMapping()
-    public ResponseEntity<Reserva> create(@RequestBody ReservaRequestDto reservaRequestDto){
+    @Operation(summary = "Fazer checkin")
+    public ResponseEntity<ReservaResponseDto> create(@RequestBody ReservaRequestDto reservaRequestDto){
         var response = service.createReserva(reservaRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);
+    }
+
+    @PutMapping("/{id}/adicionar-consumo/{consumoId}")
+    public ResponseEntity<ReservaResponseDto> addConsumo(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Reserva id")
+            Long id,
+            @PathVariable("consumoId")
+            @Parameter(name = "consumoId", description = "Cosumo id")
+            Long consumoId
+    )
+    {
+        return ResponseEntity.status(200).body(service.addConsumo(id, consumoId));
+    }
+
+    @PutMapping("/{id}/adicionar-servico/{servicoId}")
+    public ResponseEntity<ReservaResponseDto> addServico(
+            @PathVariable("id")
+            @Parameter(name = "id", description = "Reserva id")
+            Long id,
+            @PathVariable("servicoId")
+            @Parameter(name = "servicoId", description = "serviço id")
+            Long servicoId
+    )
+    {
+        return ResponseEntity.status(200).body(service.addServico(id, servicoId));
     }
 }

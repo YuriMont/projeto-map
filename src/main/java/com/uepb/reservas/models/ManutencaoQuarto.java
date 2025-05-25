@@ -1,14 +1,11 @@
 package com.uepb.reservas.models;
 
 import com.uepb.reservas.dtos.requests.ManutencaoQuartoRequestDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Id;
+import com.uepb.reservas.enums.ManutecaoQuartoStatus;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -28,9 +25,10 @@ public class ManutencaoQuarto extends BaseEntity{
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
     private String descricao;
-    private Date dataInicio;
-    private Date dataFim;
-    private String status;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
+    @Enumerated(EnumType.ORDINAL)
+    private ManutecaoQuartoStatus status;
 
     public ManutencaoQuarto(ManutencaoQuartoRequestDto requestDto){
         this.quarto = new Quarto(requestDto.id_quarto());
@@ -38,7 +36,7 @@ public class ManutencaoQuarto extends BaseEntity{
         this.descricao = requestDto.descricao();
         this.dataInicio = requestDto.dataInicio();
         this.dataFim =  requestDto.dataFim();
-        this.status = requestDto.status();
+        this.status = ManutecaoQuartoStatus.values()[requestDto.status()];
     }
 
     public ManutencaoQuarto(Long id, ManutencaoQuartoRequestDto requestDto){
@@ -48,7 +46,7 @@ public class ManutencaoQuarto extends BaseEntity{
         this.descricao = requestDto.descricao();
         this.dataInicio = requestDto.dataInicio();
         this.dataFim =  requestDto.dataFim();
-        this.status = requestDto.status();
+        this.status = ManutecaoQuartoStatus.values()[requestDto.status()];
     }
 
 }

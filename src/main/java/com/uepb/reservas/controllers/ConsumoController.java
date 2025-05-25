@@ -1,6 +1,7 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ConsumoRequestDto;
+import com.uepb.reservas.dtos.responses.ConsumoResponseDto;
 import com.uepb.reservas.models.Consumo;
 import com.uepb.reservas.services.ConsumoService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,12 +22,12 @@ public class ConsumoController {
     private ConsumoService service;
 
     @GetMapping
-    public ResponseEntity<List<Consumo>> findAll(){
-        return ResponseEntity.status(200).body(service.findConsumo());
+    public ResponseEntity<List<ConsumoResponseDto>> findAll(){
+        return ResponseEntity.status(200).body(service.findConsumos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Consumo>> findById(
+    public ResponseEntity<ConsumoResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Consumo id")
             Long id)
@@ -46,7 +47,7 @@ public class ConsumoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Consumo> updateById(
+    public ResponseEntity<ConsumoResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Consumo id")
             Long id,
@@ -57,7 +58,7 @@ public class ConsumoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Consumo> create(@RequestBody ConsumoRequestDto consumoRequestDto){
+    public ResponseEntity<ConsumoResponseDto> create(@RequestBody ConsumoRequestDto consumoRequestDto){
         var response = service.createConsumo(consumoRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);

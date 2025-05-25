@@ -1,15 +1,7 @@
 package com.uepb.reservas.models;
 
 import com.uepb.reservas.dtos.requests.QuartoRequestDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import com.uepb.reservas.enums.QuartoStatus;
@@ -29,15 +21,14 @@ public class Quarto extends BaseEntity{
     private Long id;
     @Column(nullable = false, unique = true)
     private Long numero;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private QuartoTipo tipo;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private QuartoStatus status;
     private Integer capacidade;
     private Double precoDiaria;
-    @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List <Reserva> reservas;
-    private List<Consumo> consumos;
 
     public Quarto (Long id){
         this.id = id;

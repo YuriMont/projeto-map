@@ -1,8 +1,9 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.PagamentoRequestDto;
-import com.uepb.reservas.models.Pagamento;
+import com.uepb.reservas.dtos.responses.PagamentoResponseDto;
 import com.uepb.reservas.services.PagamentoService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/pagamento")
@@ -21,12 +21,12 @@ public class PagamentoController {
     private PagamentoService service;
 
     @GetMapping
-    public ResponseEntity<List<Pagamento>> findAll(){
-        return ResponseEntity.status(200).body(service.findPagamento());
+    public ResponseEntity<List<PagamentoResponseDto>> findAll(){
+        return ResponseEntity.status(200).body(service.findPagamentos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Pagamento>> findById(
+    public ResponseEntity<PagamentoResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Pagamento id")
             Long id)
@@ -46,18 +46,19 @@ public class PagamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pagamento> updateById(
+    public ResponseEntity<PagamentoResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Pagamento id")
             Long id,
             @RequestBody PagamentoRequestDto pagamentoRequestDto
             )
     {
-        return ResponseEntity.status(200).body(service.updatPagamento(id, pagamentoRequestDto));
+        return ResponseEntity.status(200).body(service.updatePagamentoMetodo(id, pagamentoRequestDto));
     }
 
     @PostMapping()
-    public ResponseEntity<Pagamento> create(@RequestBody PagamentoRequestDto pagamentoRequestDto){
+    @Operation(summary = "Fazer checkout")
+    public ResponseEntity<PagamentoResponseDto> create(@RequestBody PagamentoRequestDto pagamentoRequestDto){
         var response = service.createPagamento(pagamentoRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);

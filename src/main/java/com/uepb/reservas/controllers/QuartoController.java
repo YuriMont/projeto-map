@@ -1,6 +1,7 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.QuartoRequestDto;
+import com.uepb.reservas.dtos.responses.QuartoResponseDto;
 import com.uepb.reservas.models.Quarto;
 import com.uepb.reservas.services.QuartoService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,12 +22,12 @@ public class QuartoController {
     private QuartoService service;
 
     @GetMapping
-    public ResponseEntity<List<Quarto>> findAll(){
+    public ResponseEntity<List<QuartoResponseDto>> findAll(){
         return ResponseEntity.status(200).body(service.findQuarto());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Quarto>> findById(
+    public ResponseEntity<QuartoResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Quarto id")
             Long id)
@@ -46,7 +47,7 @@ public class QuartoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Quarto> updateById(
+    public ResponseEntity<QuartoResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Quarto id")
             Long id,
@@ -57,7 +58,7 @@ public class QuartoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Quarto> create(@RequestBody QuartoRequestDto quartoRequestDto){
+    public ResponseEntity<QuartoResponseDto> create(@RequestBody QuartoRequestDto quartoRequestDto){
         var response = service.createQuarto(quartoRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);

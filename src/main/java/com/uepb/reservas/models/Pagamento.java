@@ -1,19 +1,14 @@
 package com.uepb.reservas.models;
 
+import jakarta.persistence.*;
 import org.springframework.boot.context.properties.source.ConfigurationPropertyName.Form;
 
 import com.uepb.reservas.dtos.requests.PagamentoRequestDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Id;
 import lombok.*;
 
 import com.uepb.reservas.enums.FormaPagamento;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,29 +20,17 @@ public class Pagamento extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "id_reserva")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "reserva_id", referencedColumnName = "id")
     private Reserva reserva;
     private Double valorPago;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private FormaPagamento formaPagamento;
-
-    public Pagamento(Reserva reserva, Double valorPago, FormaPagamento formaPagamento){
-        this.reserva = reserva;
-        this.valorPago = valorPago;
-        this.formaPagamento = formaPagamento;
-    }
     
-    public Pagamento (PagamentoRequestDto requestDto){
-        this.reserva = new Reserva(requestDto.id_reserva());
-        this.valorPago = requestDto.valorPago();
+    public Pagamento (PagamentoRequestDto requestDto, Reserva reserva){
+        this.reserva = reserva;
+        this.valorPago = reserva.calcularValor();
         this.formaPagamento =  requestDto.formaPagamento();
     }
 
-    public Pagamento (Long id, PagamentoRequestDto requestDto){
-        this.id = id;
-        this.reserva = new Reserva(requestDto.id_reserva());
-        this.valorPago = requestDto.valorPago();
-        this.formaPagamento =  requestDto.formaPagamento();
-    }
 }

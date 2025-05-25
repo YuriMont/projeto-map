@@ -1,6 +1,7 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.HospedeRequestDto;
+import com.uepb.reservas.dtos.responses.HospedeResponseDto;
 import com.uepb.reservas.models.Hospede;
 import com.uepb.reservas.services.HospedeService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,12 +22,12 @@ public class HospedeController {
     private HospedeService service;
 
     @GetMapping
-    public ResponseEntity<List<Hospede>> findAll(){
+    public ResponseEntity<List<HospedeResponseDto>> findAll(){
         return ResponseEntity.status(200).body(service.findHospedes());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Hospede>> findById(
+    public ResponseEntity<HospedeResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Hóspede id")
             Long id)
@@ -46,7 +47,7 @@ public class HospedeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Hospede> updateById(
+    public ResponseEntity<HospedeResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Hóspede id")
             Long id,
@@ -57,7 +58,7 @@ public class HospedeController {
     }
 
     @PostMapping()
-    public ResponseEntity<Hospede> create(@RequestBody HospedeRequestDto hospedeRequestDto){
+    public ResponseEntity<HospedeResponseDto> create(@RequestBody HospedeRequestDto hospedeRequestDto){
         var response = service.createHospede(hospedeRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);

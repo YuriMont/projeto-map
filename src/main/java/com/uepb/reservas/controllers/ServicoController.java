@@ -1,6 +1,7 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ServicoRequestDto;
+import com.uepb.reservas.dtos.responses.ServicoResponseDto;
 import com.uepb.reservas.models.Servico;
 import com.uepb.reservas.services.ServicoService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,12 +22,12 @@ public class ServicoController {
     private ServicoService service;
 
     @GetMapping
-    public ResponseEntity<List<Servico>> findAll(){
-        return ResponseEntity.status(200).body(service.findServico());
+    public ResponseEntity<List<ServicoResponseDto>> findAll(){
+        return ResponseEntity.status(200).body(service.findServicos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Servico>> findById(
+    public ResponseEntity<ServicoResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Serviço id")
             Long id)
@@ -46,7 +47,7 @@ public class ServicoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Servico> updateById(
+    public ResponseEntity<ServicoResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Serviço id")
             Long id,
@@ -57,7 +58,7 @@ public class ServicoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Servico> create(@RequestBody ServicoRequestDto servicoRequestDto){
+    public ResponseEntity<ServicoResponseDto> create(@RequestBody ServicoRequestDto servicoRequestDto){
         var response = service.createServico(servicoRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);

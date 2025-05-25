@@ -1,20 +1,13 @@
 package com.uepb.reservas.models;
 
 import com.uepb.reservas.dtos.requests.ReservaRequestDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import com.uepb.reservas.enums.ReservaStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
@@ -27,9 +20,9 @@ public class Reserva extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dataCheckin;
-    private Date dataCheckout;
-    @Enumerated(EnumType.STRING)
+    private LocalDateTime dataCheckin;
+    private LocalDateTime dataCheckout;
+    @Enumerated(EnumType.ORDINAL)
     private ReservaStatus status;
     @ManyToOne
     @JoinColumn(name = "id_hospede")
@@ -37,19 +30,26 @@ public class Reserva extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "id_quarto")
     private Quarto quarto;
-    @OneToMany(mappedBy = "reserva")
-    private List<Pagamento> pagamentos;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
+    private Pagamento pagamento;
+    @ManyToMany
+    @JoinTable(
+            name = "reserva_servico",
+            joinColumns = @JoinColumn(name = "reserva_id"),
+            inverseJoinColumns = @JoinColumn(name = "servico_id")
+    )
+    private List<Servico> servicos;
+    @ManyToMany
+    @JoinTable(
+            name = "reserva_consumo",
+            joinColumns = @JoinColumn(name = "reserva_id"),
+            inverseJoinColumns = @JoinColumn(name = "consumo_id")
+    )
+    private List<Consumo> consumos;
 
     public Reserva(Long id){
         this.id = id;
-    }
-
-    public Reserva(Date dataCheckin, Date dataCheckout, Hospede hospede, Quarto quarto, ReservaStatus status, List<Pagamento> pagamentos){
-        this.dataCheckin = dataCheckin;
-        this.dataCheckout = dataCheckout;
-        this.hospede = hospede;
-        this.status = status;
-        this.pagamentos = pagamentos;
     }
 
     public Reserva (ReservaRequestDto requestDto){
@@ -57,7 +57,7 @@ public class Reserva extends BaseEntity{
         this.quarto = new Quarto(requestDto.id_quarto());
         this.dataCheckin = requestDto.dataCheckin();
         this.dataCheckout = requestDto.dataCheckout();
-        this.status = requestDto.status();
+        this.status = ReservaStatus.CONFIRMADA;
     }
 
     public Reserva (Long id, ReservaRequestDto requestDto){
@@ -66,6 +66,20 @@ public class Reserva extends BaseEntity{
         this.quarto = new Quarto(requestDto.id_quarto());
         this.dataCheckin = requestDto.dataCheckin();
         this.dataCheckout = requestDto.dataCheckout();
-        this.status = requestDto.status();
+    }
+
+    public Double calcularValor(){
+        Double somaConsumos = consumos.stream()
+                .mapToDouble(item -> item.getQuantidade() * item.getPrecoUnitario())
+                .sum();
+
+        Double somaServicos = servicos.stream()
+                .mapToDouble(item -> item.getValor())
+                .sum();
+
+        long diasEstadia = ChronoUnit.DAYS.between(dataCheckin, dataCheckout);
+        Double valorEstadia = quarto.getPrecoDiaria() * diasEstadia;
+
+        return somaConsumos + somaServicos + valorEstadia;
     }
 }

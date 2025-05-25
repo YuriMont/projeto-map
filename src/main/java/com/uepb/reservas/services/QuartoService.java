@@ -1,53 +1,54 @@
 package com.uepb.reservas.services;
 
 import com.uepb.reservas.dtos.requests.QuartoRequestDto;
-import com.uepb.reservas.models.Consumo;
+import com.uepb.reservas.dtos.responses.QuartoResponseDto;
 import com.uepb.reservas.models.Quarto;
-import com.uepb.reservas.repositories.QuartoReposiroty;
+import com.uepb.reservas.repositories.QuartoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuartoService {
 
     @Autowired
-    private QuartoReposiroty repository;
+    private QuartoRepository repository;
 
-    public Quarto createQuarto(QuartoRequestDto quartoRequestDto){
-        return repository.save(new Quarto(quartoRequestDto));
+    @Transactional
+    public QuartoResponseDto createQuarto(QuartoRequestDto quartoRequestDto){
+        Quarto quarto = repository.save(new Quarto(quartoRequestDto));
+
+        return new QuartoResponseDto(quarto);
     }
 
-    public Optional<Quarto> findQuartoById(Long id){
-        return repository.findById(id);
+    @Transactional
+    public QuartoResponseDto findQuartoById(Long id){
+        Quarto quarto = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Id inválido"));
+
+        return new QuartoResponseDto(quarto);
     }
 
-    public Quarto updateQuarto(Long id, QuartoRequestDto quartoRequestDto){
+    @Transactional
+    public QuartoResponseDto updateQuarto(Long id, QuartoRequestDto quartoRequestDto){
         if(!repository.existsById(id)) {
             throw new IllegalArgumentException("Id não encontrado.");
         }
 
-        return repository.save(new Quarto(id, quartoRequestDto));
+        Quarto quarto = repository.save(new Quarto(id, quartoRequestDto));
+        return new QuartoResponseDto(quarto);
     }
 
+    @Transactional
     public void deleteQuartoById(Long id){
         repository.deleteById(id);
     }
 
-    public List<Quarto> findQuarto(){
-        return repository.findAll();
-    }
+    @Transactional
+    public List<QuartoResponseDto> findQuarto(){
+        List<Quarto> quartos = repository.findAll();
 
-    public static void listarConsumos(List<Consumo> consumos) {
-        if (consumos == null || consumos.isEmpty()) {
-            System.out.println("Nenhum consumo registrado.");
-            return;
-        }
-
-        for (Consumo consumo : consumos) {
-            System.out.println(consumo);
-        }
+        return quartos.stream().map(item -> new QuartoResponseDto(item)).toList();
     }
 }

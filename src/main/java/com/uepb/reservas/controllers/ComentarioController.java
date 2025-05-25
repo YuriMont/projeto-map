@@ -1,8 +1,10 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ComentarioRequestDto;
+import com.uepb.reservas.dtos.responses.ComentarioResponseDto;
 import com.uepb.reservas.models.Comentario;
 import com.uepb.reservas.services.ComentarioService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,12 @@ public class ComentarioController {
     private ComentarioService service;
 
     @GetMapping
-    public ResponseEntity<List<Comentario>> findAll(){
-        return ResponseEntity.status(200).body(service.findComentario());
+    public ResponseEntity<List<ComentarioResponseDto>> findAll(){
+        return ResponseEntity.status(200).body(service.findComentarios());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Comentario>> findById(
+    public ResponseEntity<ComentarioResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Comentário id")
             Long id)
@@ -46,7 +48,7 @@ public class ComentarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Comentario> updateById(
+    public ResponseEntity<ComentarioResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Comentário id")
             Long id,
@@ -57,7 +59,8 @@ public class ComentarioController {
     }
 
     @PostMapping()
-    public ResponseEntity<Comentario> create(@RequestBody ComentarioRequestDto comentarioRequestDto){
+    @Operation(summary = "Fazer comentario")
+    public ResponseEntity<ComentarioResponseDto> create(@RequestBody ComentarioRequestDto comentarioRequestDto){
         var response = service.createComentario(comentarioRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);

@@ -19,10 +19,6 @@ public class Consumo extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "id_reserva", nullable = false)
-    private Reserva reserva;
-    private Quarto quarto;
     private String descricao;
     private int quantidade;
     private double precoUnitario;
@@ -32,7 +28,6 @@ public class Consumo extends BaseEntity{
     }
 
     public Consumo (ConsumoRequestDto requestDto){
-        this.reserva = new Reserva(requestDto.id_reserva());
         this.descricao = requestDto.descricao();
         this.quantidade = requestDto.quantidade();
         this.precoUnitario = requestDto.precoUnitario();
@@ -40,7 +35,6 @@ public class Consumo extends BaseEntity{
 
     public Consumo (long id, ConsumoRequestDto requestDto){
         this.id = id;
-        this.reserva = new Reserva(requestDto.id_reserva());
         this.descricao = requestDto.descricao();
         this.quantidade = requestDto.quantidade();
         this.precoUnitario = requestDto.precoUnitario();

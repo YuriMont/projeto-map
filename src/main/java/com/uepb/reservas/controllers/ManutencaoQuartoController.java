@@ -1,6 +1,7 @@
 package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ManutencaoQuartoRequestDto;
+import com.uepb.reservas.dtos.responses.ManutencaoQuartoResponseDto;
 import com.uepb.reservas.models.ManutencaoQuarto;
 import com.uepb.reservas.services.ManutencaoQuartoService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,12 +22,12 @@ public class ManutencaoQuartoController {
     private ManutencaoQuartoService service;
 
     @GetMapping
-    public ResponseEntity<List<ManutencaoQuarto>> findAll(){
-        return ResponseEntity.status(200).body(service.findManutencaoQuarto());
+    public ResponseEntity<List<ManutencaoQuartoResponseDto>> findAll(){
+        return ResponseEntity.status(200).body(service.findManutencoesQuarto());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<ManutencaoQuarto>> findById(
+    public ResponseEntity<ManutencaoQuartoResponseDto> findById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Manutenção de Quarto id")
             Long id)
@@ -46,7 +47,7 @@ public class ManutencaoQuartoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ManutencaoQuarto> updateById(
+    public ResponseEntity<ManutencaoQuartoResponseDto> updateById(
             @PathVariable("id")
             @Parameter(name = "id", description = "Manutenção de Quarto id")
             Long id,
@@ -57,7 +58,7 @@ public class ManutencaoQuartoController {
     }
 
     @PostMapping()
-    public ResponseEntity<ManutencaoQuarto> create(@RequestBody ManutencaoQuartoRequestDto manutencaoQuartoRequestDto){
+    public ResponseEntity<ManutencaoQuartoResponseDto> create(@RequestBody ManutencaoQuartoRequestDto manutencaoQuartoRequestDto){
         var response = service.createManutencaoQuarto(manutencaoQuartoRequestDto);
         System.out.println(response);
         return ResponseEntity.status(200).body(response);

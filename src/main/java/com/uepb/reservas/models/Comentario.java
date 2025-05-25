@@ -1,16 +1,9 @@
 package com.uepb.reservas.models;
 
 import com.uepb.reservas.dtos.requests.ComentarioRequestDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import com.uepb.reservas.enums.Avaliacao;
+import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
 
 @Entity
 @Getter
@@ -30,23 +23,14 @@ public class Comentario extends BaseEntity{
     private Reserva reserva;
     @Column(columnDefinition = "TEXT")
     private String comentario;
-    private int avaliacao;
-    private Date dataComentario;
-
-    public Comentario(Hospede hospede, Reserva reserva, String comentario, int avaliacao, Date dataComentario){
-        this.hospede = hospede;
-        this.reserva = reserva;
-        this.comentario = comentario;
-        this.avaliacao = avaliacao;
-        this.dataComentario = dataComentario;
-    }
+    @Enumerated(EnumType.ORDINAL)
+    private Avaliacao avaliacao;
 
     public Comentario (ComentarioRequestDto requestDto){
         this.hospede = new Hospede(requestDto.id_hospede());
         this.reserva = new Reserva(requestDto.id_reserva());
         this.comentario = requestDto.comentario();
-        this.avaliacao = requestDto.avaliacao();
-        this.dataComentario = requestDto.dataComentario();
+        this.avaliacao = Avaliacao.values()[requestDto.avaliacao()];
     }
 
     public Comentario (Long id, ComentarioRequestDto requestDto){
@@ -54,7 +38,6 @@ public class Comentario extends BaseEntity{
         this.hospede = new Hospede(requestDto.id_hospede());
         this.reserva = new Reserva(requestDto.id_reserva());
         this.comentario = requestDto.comentario();
-        this.avaliacao = requestDto.avaliacao();
-        this.dataComentario = requestDto.dataComentario();
+        this.avaliacao = Avaliacao.values()[requestDto.avaliacao()];
     }
 }

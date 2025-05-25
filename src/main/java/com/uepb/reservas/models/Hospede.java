@@ -1,13 +1,7 @@
 package com.uepb.reservas.models;
 
 import com.uepb.reservas.dtos.requests.HospedeRequestDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -27,24 +21,16 @@ public class Hospede extends BaseEntity{
     private String nome;
     @Column(unique = true)
     private String cpf;
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String telefone;
-    private String senha;
     private Date dataNascimento;
-    @OneToMany(mappedBy = "hospede", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hospede", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reserva> reservas;
 
     public Hospede (Long id){
         this.id = id;
-    }
-    
-    public Hospede(String nome, String cpf, String email, String telefone, String senha, Date dataNascimento){
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.senha = senha;
-        this.dataNascimento = dataNascimento;
     }
 
     public Hospede (HospedeRequestDto requestDto){
