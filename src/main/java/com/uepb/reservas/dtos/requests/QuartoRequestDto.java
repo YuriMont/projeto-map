@@ -9,13 +9,13 @@ import com.uepb.reservas.enums.QuartoStatus;
 public record QuartoRequestDto(
 
     @Schema(description = "Numero do Quarto", example = "71")
-    long numero,
+    Long numero,
 
-    @Schema(description = "Tipo do Quarto", example = "LUXO")
-    QuartoTipo tipo,
+    @Schema(description = "Tipo do Quarto", example = "2")
+    Integer quartoTipo,
 
-    @Schema(description = "Status do Quarto", example = "OCUPADO")
-    QuartoStatus status,
+    @Schema(description = "Status do Quarto", example = "2")
+    Integer quartoStatus,
 
     @Schema(description = "Capacidade do Quarto", example = "5")
     Integer capacidade,

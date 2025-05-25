@@ -14,5 +14,5 @@ public record ComentarioRequestDto(
         String comentario,
 
         @Schema(description = "Avaliacao", example = "5")
-        int avaliacao
+        Integer avaliacao
 ){}

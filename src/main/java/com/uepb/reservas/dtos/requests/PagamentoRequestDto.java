@@ -9,6 +9,6 @@ public record PagamentoRequestDto(
     @Schema(description = "ID da Reserva", example = "20123")
     Long id_reserva,
 
-    @Schema(description = "Forma de pagamento", example = "PIX")
-    FormaPagamento formaPagamento
+    @Schema(description = "Forma de pagamento", example = "4")
+    Integer formaPagamento
 ){}

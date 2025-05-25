@@ -10,7 +10,7 @@ public record ConsumoRequestDto(
     String descricao,
 
     @Schema(description = "Quantidade do consumo", example = "10")
-    int quantidade,
+    Integer quantidade,
 
     @Schema(description = "Preço do consumo", example = "12.00")
     Double precoUnitario,
