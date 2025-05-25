@@ -2,7 +2,6 @@ package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ComentarioRequestDto;
 import com.uepb.reservas.dtos.responses.ComentarioResponseDto;
-import com.uepb.reservas.models.Comentario;
 import com.uepb.reservas.services.ComentarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/comentario")
@@ -59,7 +57,7 @@ public class ComentarioController {
     }
 
     @PostMapping()
-    @Operation(summary = "Fazer comentario")
+    @Operation(summary = "Fazer comentário")
     public ResponseEntity<ComentarioResponseDto> create(@RequestBody ComentarioRequestDto comentarioRequestDto){
         var response = service.createComentario(comentarioRequestDto);
         System.out.println(response);

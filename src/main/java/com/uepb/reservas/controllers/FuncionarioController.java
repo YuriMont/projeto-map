@@ -2,7 +2,6 @@ package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.FuncionarioRequestDto;
 import com.uepb.reservas.dtos.responses.FuncionarioResponseDto;
-import com.uepb.reservas.models.Funcionario;
 import com.uepb.reservas.services.FuncionarioService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/funcionario")

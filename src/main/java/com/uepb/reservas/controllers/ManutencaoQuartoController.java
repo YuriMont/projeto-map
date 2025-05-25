@@ -2,7 +2,6 @@ package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ManutencaoQuartoRequestDto;
 import com.uepb.reservas.dtos.responses.ManutencaoQuartoResponseDto;
-import com.uepb.reservas.models.ManutencaoQuarto;
 import com.uepb.reservas.services.ManutencaoQuartoService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/manutencaoQuarto")

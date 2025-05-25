@@ -1,14 +1,11 @@
 package com.uepb.reservas.models;
 
 import jakarta.persistence.*;
-import org.springframework.boot.context.properties.source.ConfigurationPropertyName.Form;
 
 import com.uepb.reservas.dtos.requests.PagamentoRequestDto;
 import lombok.*;
 
 import com.uepb.reservas.enums.FormaPagamento;
-
-import java.util.List;
 
 @Entity
 @Getter

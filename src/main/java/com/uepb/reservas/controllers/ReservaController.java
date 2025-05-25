@@ -2,7 +2,6 @@ package com.uepb.reservas.controllers;
 
 import com.uepb.reservas.dtos.requests.ReservaRequestDto;
 import com.uepb.reservas.dtos.responses.ReservaResponseDto;
-import com.uepb.reservas.models.Reserva;
 import com.uepb.reservas.services.ReservaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/reserva")
@@ -85,7 +83,7 @@ public class ReservaController {
             @Parameter(name = "id", description = "Reserva id")
             Long id,
             @PathVariable("servicoId")
-            @Parameter(name = "servicoId", description = "serviço id")
+            @Parameter(name = "servicoId", description = "Serviço id")
             Long servicoId
     )
     {

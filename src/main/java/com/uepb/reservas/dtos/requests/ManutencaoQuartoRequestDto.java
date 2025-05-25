@@ -1,7 +1,6 @@
 package com.uepb.reservas.dtos.requests;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public record ManutencaoQuartoRequestDto(
     Long id_quarto,
