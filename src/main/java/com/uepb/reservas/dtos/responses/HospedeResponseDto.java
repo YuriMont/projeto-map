@@ -2,8 +2,10 @@ package com.uepb.reservas.dtos.responses;
 
 import com.uepb.reservas.models.Hospede;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public record HospedeResponseDto(
         Long id,
@@ -22,7 +24,11 @@ public record HospedeResponseDto(
                 hospede.getEmail(),
                 hospede.getTelefone(),
                 hospede.getDataNascimento(),
-                hospede.getReservas().stream().map(item -> new ReservaResponseDto(item)).toList()
+                Optional.ofNullable(hospede.getReservas())
+                        .orElse(Collections.emptyList())
+                        .stream()
+                        .map(item -> new ReservaResponseDto(item))
+                        .toList()
         );
     }
 }

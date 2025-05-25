@@ -2,8 +2,10 @@ package com.uepb.reservas.dtos.responses;
 
 import com.uepb.reservas.models.Funcionario;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public record FuncionarioResponseDto(
         Long id,
@@ -22,7 +24,11 @@ public record FuncionarioResponseDto(
                 funcionario.getEmail(),
                 funcionario.getTelefone(),
                 funcionario.getDataContratacao(),
-                funcionario.getManutencoes().stream().map(item -> new ManutencaoQuartoResponseDto(item)).toList()
+                Optional.ofNullable(funcionario.getManutencoes())
+                        .orElse(Collections.emptyList())
+                        .stream()
+                        .map(item -> new ManutencaoQuartoResponseDto(item))
+                        .toList()
         );
     }
 
