@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import com.uepb.reservas.dtos.requests.PagamentoRequestDto;
 import lombok.*;
 
-import com.uepb.reservas.enums.Avaliacao;
 import com.uepb.reservas.enums.FormaPagamento;
 
 @Entity

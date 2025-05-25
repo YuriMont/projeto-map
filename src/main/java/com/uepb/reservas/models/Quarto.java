@@ -4,7 +4,6 @@ import com.uepb.reservas.dtos.requests.QuartoRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
-import com.uepb.reservas.enums.Avaliacao;
 import com.uepb.reservas.enums.QuartoStatus;
 import com.uepb.reservas.enums.QuartoTipo;
 
