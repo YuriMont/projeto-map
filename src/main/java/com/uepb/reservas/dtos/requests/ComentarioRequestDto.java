@@ -13,6 +13,6 @@ public record ComentarioRequestDto(
         @Schema(description = "Comentario sobre a hospedagem", example = "nossa foi uma delicia")
         String comentario,
 
-        @Schema(description = "Avaliacao", example = "MUITO_BOA")
+        @Schema(description = "Avaliacao", example = "5")
         int avaliacao
 ){}
