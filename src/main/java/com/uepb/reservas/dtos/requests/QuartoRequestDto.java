@@ -1,10 +1,6 @@
 package com.uepb.reservas.dtos.requests;
 
-import com.uepb.reservas.enums.QuartoTipo;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import com.uepb.reservas.enums.QuartoStatus;
 
 public record QuartoRequestDto(
 

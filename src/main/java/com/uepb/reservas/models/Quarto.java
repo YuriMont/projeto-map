@@ -4,6 +4,7 @@ import com.uepb.reservas.dtos.requests.QuartoRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import com.uepb.reservas.enums.Avaliacao;
 import com.uepb.reservas.enums.QuartoStatus;
 import com.uepb.reservas.enums.QuartoTipo;
 
@@ -36,8 +37,8 @@ public class Quarto extends BaseEntity{
 
     public Quarto (QuartoRequestDto requestDto){
         this.numero = requestDto.numero();
-        this.tipo = requestDto.tipo();
-        this.status = requestDto.status();
+        this.tipo = QuartoTipo.values()[requestDto.quartoTipo()];
+        this.status = QuartoStatus.values()[requestDto.quartoStatus()];
         this.capacidade = requestDto.capacidade();
         this.precoDiaria = requestDto.precoDiaria();
     }
@@ -45,8 +46,8 @@ public class Quarto extends BaseEntity{
     public Quarto (Long id, QuartoRequestDto requestDto){
         this.id = id;
         this.numero = requestDto.numero();
-        this.tipo = requestDto.tipo();
-        this.status = requestDto.status();
+        this.tipo = QuartoTipo.values()[requestDto.quartoTipo()];
+        this.status = QuartoStatus.values()[requestDto.quartoStatus()];
         this.capacidade = requestDto.capacidade();
         this.precoDiaria = requestDto.precoDiaria();
     }

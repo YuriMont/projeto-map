@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import com.uepb.reservas.dtos.requests.PagamentoRequestDto;
 import lombok.*;
 
+import com.uepb.reservas.enums.Avaliacao;
 import com.uepb.reservas.enums.FormaPagamento;
 
 @Entity
@@ -27,7 +28,10 @@ public class Pagamento extends BaseEntity{
     public Pagamento (PagamentoRequestDto requestDto, Reserva reserva){
         this.reserva = reserva;
         this.valorPago = reserva.calcularValor();
-        this.formaPagamento =  requestDto.formaPagamento();
+        this.formaPagamento = FormaPagamento.values()[requestDto.formaPagamento()];
     }
 
+    public void setFormaPagamento(Integer formaPagamento2) {
+        this.formaPagamento = FormaPagamento.values()[formaPagamento2];
+    }
 }

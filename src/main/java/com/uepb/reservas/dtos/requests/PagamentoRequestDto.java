@@ -1,7 +1,5 @@
 package com.uepb.reservas.dtos.requests;
 
-import com.uepb.reservas.enums.FormaPagamento;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public record PagamentoRequestDto(
