@@ -5,26 +5,8 @@ import com.uepb.reservas.models.Quarto;
 
 import java.util.Scanner;
 
-import org.springframework.stereotype.Service;
-
-@Service
-public class MenuService {
+public class Menu {
     Scanner i = new Scanner(System.in);
-
-    public String processarEscolha(int escolha) {
-        if (escolha < 1 || escolha > 2) {
-            return "Opção inexistente. Tente novamente.";
-        }
-
-        switch (escolha) {
-            case 1:
-                return "Você escolheu fazer login.";
-            case 2:
-                return "Você escolheu cadastrar.";
-            default:
-                return "Erro inesperado.";
-        }
-    }
 
     public int menuInicial(){
         System.out.println("--- MENU INICIAL ---");

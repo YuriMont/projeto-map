@@ -38,11 +38,19 @@ public class Hospede extends BaseEntity{
         this.id = id;
     }
     
+    public Hospede(String nome, String cpf, String email, String telefone, String senha, Date dataNascimento){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.telefone = telefone;
+        this.senha = senha;
+        this.dataNascimento = dataNascimento;
+    }
+
     public Hospede (HospedeRequestDto requestDto){
         this.nome = requestDto.nome();
         this.cpf = requestDto.cpf();
         this.email = requestDto.email();
-        this.senha = requestDto.senha();
         this.telefone = requestDto.telefone();
         this.dataNascimento = requestDto.dataNascimento();
     }

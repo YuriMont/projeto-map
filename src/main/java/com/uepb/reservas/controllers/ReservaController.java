@@ -62,14 +62,4 @@ public class ReservaController {
         System.out.println(response);
         return ResponseEntity.status(200).body(response);
     }
-
-    @PostMapping("/{id}/cancelar")
-    public ResponseEntity<Reserva> cancelamentoReserva(Reserva reserva) {
-        try {
-            String resultado = service.cancelamentoReserva(Reserva reserva);
-            return ResponseEntity.ok(resultado);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao cancelar reserva: " + e.getMessage());
-        }
-    }
 }
