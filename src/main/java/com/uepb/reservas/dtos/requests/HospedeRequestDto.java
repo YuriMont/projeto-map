@@ -18,6 +18,6 @@ public record HospedeRequestDto(
     @Schema(description = "Telefone do Hospede", example = "(87) 9 9001-7511")
     String telefone,
 
-    @Schema(description = "Data de nascimento do Hospede", example = "03/03/1995")
+    @Schema(description = "Data de nascimento do Hospede", example = "1995-03-03")
     Date dataNascimento
 ){}

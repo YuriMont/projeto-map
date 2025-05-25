@@ -15,6 +15,6 @@ public record ConsumoRequestDto(
     @Schema(description = "Preço do consumo", example = "12.00")
     Double precoUnitario,
 
-    @Schema(description = "Data consumo", example = "16/03/2000")
+    @Schema(description = "Data consumo", example = "2000-03-16")
     Date dataConsumo
 ){}

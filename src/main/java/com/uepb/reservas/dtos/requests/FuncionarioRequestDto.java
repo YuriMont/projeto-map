@@ -18,6 +18,6 @@ public record FuncionarioRequestDto(
         @Schema(description = "Telefone do funcionario", example = "(83) 9 9340-2021")
         String telefone,
 
-        @Schema(description = "Data de contratacao do funcionario", example = "20/09/2008")
+        @Schema(description = "Data de contratacao do funcionario", example = "2008-09-20")
         Date dataContratacao
 ){}
