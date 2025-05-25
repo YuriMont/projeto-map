@@ -9,18 +9,18 @@ public record ManutencaoQuartoRequestDto(
     @Schema(description = "ID do Quarto", example = "151551")
     Long id_quarto,
 
-    @Schema(description = "ID do Funcionario", example = "1701")
+    @Schema(description = "ID do Funcionário", example = "1701")
     Long id_funcionario,
 
-    @Schema(description = "Descricao da manutencao", example = "cara simplesmente cagaram na parede eu quero me demitir")
+    @Schema(description = "Descrição da manutenção", example = "cara simplesmente cagaram na parede eu quero me demitir")
     String descricao,
 
-    @Schema(description = "Data de inicio da manutencao", example = "2025-05-26 10:14:54:201")
+    @Schema(description = "Data de início da manutenção", example = "2025-05-26 10:14:54:201")
     LocalDateTime dataInicio,
 
-    @Schema(description = "Data do final da manutencao", example = "2025-05-26 16:32:31:121")
+    @Schema(description = "Data do finm da manutenção", example = "2025-05-26 16:32:31:121")
     LocalDateTime dataFim,
 
-    @Schema(description = "Status da manutencao", example = "2")
+    @Schema(description = "Status da manutenção", example = "2")
     Integer status
 ){}

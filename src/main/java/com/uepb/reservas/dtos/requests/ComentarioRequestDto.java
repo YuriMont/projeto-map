@@ -10,7 +10,7 @@ public record ComentarioRequestDto(
         @Schema(description = "ID da Reserva", example = "200")
         Long id_reserva,
 
-        @Schema(description = "Comentario sobre a hospedagem", example = "nossa foi uma delicia")
+        @Schema(description = "Comentario sobre a hospedagem", example = "Nossa foi uma delícia!")
         String comentario,
 
         @Schema(description = "Avaliacao", example = "5")

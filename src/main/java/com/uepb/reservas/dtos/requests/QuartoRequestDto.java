@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public record QuartoRequestDto(
 
-    @Schema(description = "Numero do Quarto", example = "71")
+    @Schema(description = "Número do Quarto", example = "71")
     Long numero,
 
     @Schema(description = "Tipo do Quarto", example = "2")
@@ -16,6 +16,6 @@ public record QuartoRequestDto(
     @Schema(description = "Capacidade do Quarto", example = "5")
     Integer capacidade,
 
-    @Schema(description = "Preco da diaria do Quarto", example = "600.00")
+    @Schema(description = "Preço da diária do Quarto", example = "600.00")
     Double precoDiaria
 ){}
